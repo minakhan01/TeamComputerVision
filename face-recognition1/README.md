@@ -11,7 +11,7 @@
 
 1. Run the save_face.py file
 
-	python save_face.py
+		python save_face.py
 
 2. It will ask for face_id. Since I have already saved 3 different faces of my friends and myself, your face_id should start from 3.
 3. It will also ask for a starting image number. Enter it as 1. If you have already done this and you still want to add more images then enter this as 301. Then for even more 601 and so on.
