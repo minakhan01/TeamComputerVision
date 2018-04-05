@@ -16,7 +16,7 @@ def mlp_model_fn(features, labels, mode):
 	hidden_layer = tf.layers.dense(input_layer, units=256, activation=tf.nn.relu)
 	dropout = tf.layers.dropout(hidden_layer, rate=0.8, training=mode == tf.estimator.ModeKeys.TRAIN)
 
-	hidden_layer = tf.layers.dense(hidden_layer, units=512, activation=tf.nn.relu)
+	hidden_layer = tf.layers.dense(dropout, units=512, activation=tf.nn.relu)
 	dropout = tf.layers.dropout(hidden_layer, rate=0.8, training=mode == tf.estimator.ModeKeys.TRAIN)
 
 	hidden_layer = tf.layers.dense(dropout, units=1024, activation=tf.nn.relu)
