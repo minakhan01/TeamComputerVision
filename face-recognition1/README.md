@@ -28,7 +28,7 @@
 
 2. What this file does is it iteratively searches for every face in the faces folder, then computes the embeddings of each of them.
 3. These embeddings are stored in a csv file called dataset.csv.
-4. The format of the each row of csv file is <b>face_id</b> <b>facial measurement 1</b> <b>facial measurement 2</b>....<b>facial measurement 128</b>.
+4. The format of the each row of csv file is <b>face_id</b>, <b>facial measurement 1</b>, <b>facial measurement 2</b>,....,<b>facial measurement 128</b>.
 
 ### Getting training and testing data from the csv file
 
