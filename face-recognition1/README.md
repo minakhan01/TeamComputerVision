@@ -24,7 +24,7 @@
 
 1. Run the store_facial_features.py file
 	
-	python store_facial_features.py
+		python store_facial_features.py
 
 2. What this file does is it iteratively searches for every face in the faces folder, then computes the embeddings of each of them.
 3. These embeddings are stored in a csv file called dataset.csv.
@@ -34,7 +34,7 @@
 
 1. Run the csv_to_pickle.py file
 	
-	python csv_to_pickle.py
+		python csv_to_pickle.py
 
 2. The top 9/10th of the data in the csv file is used as training data and the rest 1/10th is used as testing data.
 3. 4 new files will be created train_features, train_labels, test_features and test_labels.
@@ -43,7 +43,7 @@
 
 1. Run the train_model.py file
 
-	python train_model.py
+		python train_model.py
 
 2. The emdbedding are used to train a multilayer perceptron.
 3. I used my rule of thumb to create this network. I have no idea why it works, but I know it works.
