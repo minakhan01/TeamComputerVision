@@ -49,7 +49,7 @@
 3. I used my rule of thumb to create this network. I have no idea why it works, but I know it works.
 4. With the 3 faces of my friends and myself, I got 100% accuracy using this network.
 5. Add many more faces to see if the network really works.
-6. If even after adding many new faces the accuracy does decrease by a huge amount then the network can be used in mobile devices too since the network is very simple.
+6. The network can be used in mobile devices too since the network is very simple.
 7. The checkpoint files are stored in the tmp/mlp_model/ folder.
 
 
