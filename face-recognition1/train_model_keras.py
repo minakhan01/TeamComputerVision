@@ -48,7 +48,7 @@ def train():
 	train_labels = np_utils.to_categorical(train_labels)
 	test_labels = np_utils.to_categorical(test_labels)
 	model, callbacks_list = mlp_model()
-	model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=400, batch_size=50, callbacks=callbacks_list)
+	model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=400, batch_size=3, callbacks=callbacks_list)
 	scores = model.evaluate(test_images, test_labels, verbose=3)
 	print(scores)
 	print("MLP Error: %.2f%%" % (100-scores[1]*100))

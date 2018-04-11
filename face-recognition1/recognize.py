@@ -6,6 +6,7 @@ import dlib
 from imutils import face_utils
 from imutils.face_utils import FaceAligner
 from keras.models import load_model
+import sqlite3
 
 detector = dlib.get_frontal_face_detector()
 FACENET_MODEL = "dlib_face_recognition_resnet_model_v1.dat"
@@ -14,6 +15,7 @@ face_rec = dlib.face_recognition_model_v1(FACENET_MODEL)
 shape_predictor = dlib.shape_predictor(SHAPE_PREDICTOR)
 face_recognizer = load_model('mlp_model_keras2.h5')
 face_aligner = FaceAligner(shape_predictor, desiredFaceWidth = 250)
+conn = sqlite3.connect("face_db.db")
 
 def recognize_face(face_descriptor):
 	#print(face_descriptor)
@@ -21,6 +23,12 @@ def recognize_face(face_descriptor):
 	pred_probab = pred[0]
 	pred_class = list(pred_probab).index(max(pred_probab))
 	return max(pred_probab), pred_class
+
+def get_face_name(face_id):
+	sql_cmd = "SELECT name FROM faces WHERE face_id=%s" % (str(face_id),)
+	cursor = conn.execute(sql_cmd)
+	for row in cursor:
+		return row[0]
 
 def extract_face_info(img, img_rgb):
 	faces = detector(img_rgb)
@@ -34,8 +42,9 @@ def extract_face_info(img, img_rgb):
 			face_descriptor = face_rec.compute_face_descriptor(img_rgb, shape)
 			face_descriptor = np.array([face_descriptor,])	
 			probability, face_id = recognize_face(face_descriptor)
-			if probability > 0.5:
-				cv2.putText(img, "Face #"+str(face_id), (x, y - 40), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+			if probability > 0.9:
+				cv2.putText(img, "FaceId #"+str(face_id), (x, y - 70), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+				cv2.putText(img, 'Name - '+get_face_name(face_id),  (x, y - 40), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 				cv2.putText(img, "%s %.2f%%" % ('Probability', probability*100), (x, y-10), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 			else:
 				cv2.putText(img, 'No matching faces', (x, y - 20), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
@@ -45,6 +54,7 @@ def recognize():
 	while True:
 		img = vs.read()
 		img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+		face_recognizer.predict(np.array([[0]*128]))
 		extract_face_info(img, img_rgb)
 		cv2.imshow('Recognizing faces', img)
 		if cv2.waitKey(1) == ord('q'):
