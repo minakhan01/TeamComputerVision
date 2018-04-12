@@ -12,6 +12,9 @@ import numpy as np
 import pickle, os
 K.set_image_dim_ordering('tf')
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 def get_num_of_faces():
 	return len(os.listdir('faces/'))
 

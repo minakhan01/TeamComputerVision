@@ -10,7 +10,7 @@
 
 ### Save few faces first
 
-1. Run the save_face.py file
+1. Run the save_face.py file if you want to save faces programatically. If not follow step number 7.
 
 		python save_face.py
 
@@ -20,6 +20,7 @@
 5. You can see the faces saved in the new_faces/&lt;face_id&gt; directory.
 6. In the faces directory you will see some subfolders named as '0', '1', '2' etc. These numbers represent the face_id. Inside each folder you will see 300 images of the person taken from the webcam.
 7. You can add your own images that are taken from your phone or any other device inside the new_faces/&lt;face_id&gt; depending on your face_id.
+8. If a new face is added, make sure to add it to the face_db.db along with the appropriate face_id using DB Browser.
 
 ### Storing 128 facial measurements or aka embeddings in a csv file
 
