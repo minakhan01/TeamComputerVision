@@ -42,7 +42,7 @@
 
 ### Train the model
 
-1. Run the train_model_tf.py file to train using Tensorflow
+1. Run the train_model_tf.py file to train using Tensorflow. Remember to delete the tmp/ folder first if other faces are added or else you will face errors with shape of the output data.
 
 		python train_model_tf.py
 
@@ -65,6 +65,22 @@
 		
 		python recognize.py
 
+### Generating the Intel Movidius NCS graph
+
+1. Generating the NCS graph is easy. The graph file generated (if the following steps are followed) is stored in the 'NCS graph' folder.
+2. Make sure you have trained the network by running train_model_tf.py file.
+3. Create the same neural network only for inference and not for training. So remove all the parts that are related to training like dropout layers, loss, optimizers etc. Also make sure you name the input and the output layer. I did that and stored the code in infer_model_tf.py file. You can run this file using
+		
+		python infer_model_tf.py
+
+4. Running the above file will take only a second since we are not training. This creates a model that is NCS friendly.
+5. You will find some new files in the tmp/ folder namely <b>mlp_model_inference.index</b>, <b>mlp_model_inference.meta</b> and <b>mlp_model_inference.data-00000-of-00001</b>.
+6. With the NCS friendly model created you can now create the graph file with this command
+
+		mvNCCompile mlp_model_inference.meta -in input_layer -on softmax_tensor -o NCS\ graph/mlp_model.graph
+		
+7. This will create the required graph file in the 'NCS graph' folder.
+
 ## Future Work
 
-1. The network created is currently not compatible with NCS. That can be done easily using the NCS SDK.
+1. Recognition using the NCS SDK.

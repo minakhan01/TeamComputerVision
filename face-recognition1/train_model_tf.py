@@ -26,7 +26,7 @@ def mlp_model_fn(features, labels, mode):
 	# hidden_layer = tf.layers.dense(dropout, units=1024, activation=tf.nn.relu)
 	# dropout = tf.layers.dropout(hidden_layer, rate=0.8, training=mode == tf.estimator.ModeKeys.TRAIN)
 	
-	logits = tf.layers.dense(dropout, units=num_of_classes, name="output_layer")
+	logits = tf.layers.dense(dropout, units=num_of_classes)
 
 	output_class = tf.argmax(input=logits, axis=1, name="output_class")
 	output_probab = tf.nn.softmax(logits, name="softmax_tensor")
@@ -65,7 +65,7 @@ def main(argv):
 	tensors_to_log = {"probabilities": "softmax_tensor", "classes": "output_class"}
 	logging_hook = tf.train.LoggingTensorHook(tensors=tensors_to_log, every_n_iter=100)
 
-	train_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": train_images}, y=train_labels, batch_size=50, num_epochs=400, shuffle=False)
+	train_input_fn = tf.estimator.inputs.numpy_input_fn(x={"x": train_images}, y=train_labels, batch_size=3, num_epochs=400, shuffle=False)
 	classifier.train(input_fn=train_input_fn, hooks=[logging_hook])
 
 	# Evaluate the model and print results
