@@ -52,7 +52,7 @@
 
 3. The emdbedding are used to train a multilayer perceptron.
 4. I used my rule of thumb to create this network. I have no idea why it works, but I know it works.
-5. With 8 different faces (myself and 7 other faces of my friends), I got 100% accuracy on the validation data using this network.
+5. With 4 different faces, I got 100% accuracy on the validation data using this network.
 6. Add many more faces to see if the network really works.
 7. The network can be used in mobile devices too since the network is very simple.
 8. The checkpoint files are stored in the tmp/mlp_model/ folder.
@@ -75,9 +75,9 @@
 
 4. Running the above file will take only a second since we are not training. This creates a model that is NCS friendly.
 5. You will find some new files in the tmp/ folder namely <b>mlp_model_inference.index</b>, <b>mlp_model_inference.meta</b> and <b>mlp_model_inference.data-00000-of-00001</b>.
-6. With the NCS friendly model created you can now create the graph file with this command
+6. With the NCS friendly model created you can now create the graph file with this command (make sure you are in the face-recognition1 folder)
 
-		mvNCCompile mlp_model_inference.meta -in input_layer -on softmax_tensor -o NCS\ graph/mlp_model.graph
+		mvNCCompile tmp/mlp_model_inference.meta -in input_layer -on softmax_tensor -o NCS\ graph/mlp_model.graph
 		
 7. This will create the required graph file in the 'NCS graph' folder.
 
