@@ -1,15 +1,15 @@
 import cv2
 import numpy as np
 from webcam_video_stream import WebcamVideoStream
-import dlib
+from dlib import get_frontal_face_detector, face_recognition_model_v1, shape_predictor
 from imutils import face_utils
 from keras.models import load_model
 
-detector = dlib.get_frontal_face_detector()
+detector = get_frontal_face_detector()
 FACENET_MODEL = "dlib_face_recognition_resnet_model_v1.dat"
 SHAPE_PREDICTOR = "shape_predictor_68_face_landmarks.dat"
-face_rec = dlib.face_recognition_model_v1(FACENET_MODEL)
-shape_predictor = dlib.shape_predictor(SHAPE_PREDICTOR)
+face_rec = face_recognition_model_v1(FACENET_MODEL)
+shape_predictor = shape_predictor(SHAPE_PREDICTOR)
 face_recognizer = load_model('mlp_model_keras2.h5')
 
 def recognize_face(face_descriptor):
